@@ -1,26 +1,32 @@
-# SimpleSite — ₹1,999 website offer
+# SimpleSite Website Builder
 
-A responsive one-page landing page for a basic business website offer. The advertised ₹1,999 price excludes domain registration and renewal.
+A customer portal for the ₹1,999 simple website service. Customers create an account, complete a business and SEO brief, select brand colours, upload a logo, generate a page preview, and download the generated HTML. Domain purchase/renewal is excluded from the ₹1,999 service.
 
-## Website
+## Stack
 
-- Plain HTML, CSS, and JavaScript; no build step required.
-- Mobile-responsive, accessible layout.
-- Current form prepares and copies the inquiry text; it does not send or store submissions until a real contact method is configured.
+- Static HTML/CSS/JS frontend with a Vercel serverless config endpoint.
+- Supabase Auth for customer accounts.
+- Supabase Postgres + Row Level Security for customer briefs.
+- Supabase Storage for uploaded logos.
+- Data-driven one-page website generation with page title, description, keywords, Open Graph metadata, and LocalBusiness JSON-LD.
+- Vercel + GitHub for hosting and automatic deployments.
 
-## Vercel deployment
+## Backend setup
 
-1. Import this GitHub repository into the correct Vercel account/team.
-2. Use the repository root as the project root. No build command or output directory is required.
-3. Enable Git integration so pushes to `main` automatically deploy to production and pull requests get preview deployments.
-4. Add the chosen custom domain in Vercel after the domain is purchased.
+1. Connect the Supabase plugin and create a project.
+2. Apply `supabase/schema.sql` in that project's SQL editor.
+3. Set the Vercel project environment variables from `.env.example` (`SUPABASE_URL` and the public publishable key only). Never put a Supabase secret/service-role key in the browser or these variables.
+4. Configure Supabase Auth email redirects to the Vercel deployment origin.
+5. Deploy and confirm registration, email confirmation, sign-in, saving, logo upload, and preview generation.
 
-## GoDaddy domain — final launch step
+Until those environment variables and the SQL schema are configured, the landing page works but registration and data persistence remain disabled.
 
-Buy the exact chosen domain through the owner's GoDaddy account after checking the name and first-year and renewal prices. Then add the domain in Vercel and enter the DNS records Vercel supplies in GoDaddy DNS. Confirm verification and HTTPS before sharing the site.
+## Deployment
 
-## Before launch
+Connect the GitHub repository to a Vercel project. The repository root is the project root; it has no build command. Vercel deploys each push to the production branch and creates previews for other branches.
 
-- Replace the generic SimpleSite label with the agreed business name.
-- Set the WhatsApp number or email that should receive inquiries.
-- Confirm whether hosting, revisions, and other recurring costs are included in the ₹1,999 offer; keep the page's scope accurate.
+## Offer notes
+
+- Domain registration and renewal are extra.
+- The current flow generates a draft/preview; it does not charge customers, publish customer sites, or buy domains automatically.
+- Before enabling payments or customer publishing, add the agreed payment gateway, ownership review, and per-customer delivery process.
